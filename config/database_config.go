@@ -1,0 +1,31 @@
+package config
+
+import (
+	"fmt"
+	"os"
+
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+)
+
+func Connect_database() *gorm.DB {
+	DBUSER := os.Getenv("DB_user")
+	DBPASS := os.Getenv("DB_pass")
+	DBHOST := os.Getenv("DB_host")
+	DBPORT := os.Getenv("DB_port")
+	DBNAME := os.Getenv("DB_name")
+
+	DSN := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
+		DBUSER, DBPASS, DBHOST, DBPORT, DBNAME)
+
+	gormDB, err := gorm.Open(mysql.Open(DSN), &gorm.Config{})
+	if err != nil {
+		panic("cannot connect to database")
+	}
+
+	return gormDB
+}
+
+func migrate(db *gorm.DB) {
+	db.AutoMigrate()
+}

@@ -9,5 +9,4 @@ type Note struct {
 	Title       string    `json:"title"`
 	Date        time.Time `json:"date"`
 	Description string
-	UserId      int64
 }

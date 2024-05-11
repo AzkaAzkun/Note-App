@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/jeypc/go-jwt-mux/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-func Connect_database() *gorm.DB {
+var DB *gorm.DB
+
+func ConnectDatabase() {
 	DBUSER := os.Getenv("DB_user")
 	DBPASS := os.Getenv("DB_pass")
 	DBHOST := os.Getenv("DB_host")
@@ -20,12 +23,13 @@ func Connect_database() *gorm.DB {
 
 	gormDB, err := gorm.Open(mysql.Open(DSN), &gorm.Config{})
 	if err != nil {
-		panic("cannot connect to database")
+		panic("cannot connect to database " + err.Error())
 	}
-
-	return gormDB
+	migrate(gormDB)
+	DB = gormDB
 }
 
 func migrate(db *gorm.DB) {
-	db.AutoMigrate()
+	db.AutoMigrate(&entity.User{})
+	db.AutoMigrate(&entity.Note{})
 }

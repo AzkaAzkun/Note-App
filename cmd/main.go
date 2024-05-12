@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/AzkaAzkun/Note-App/config"
+	"github.com/AzkaAzkun/Note-App/route"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 )
@@ -17,5 +18,5 @@ func main() {
 	config.ConnectDatabase()
 
 	app := fiber.New()
-	router.SetupAuth(app)
+	route.SetupAuth(app)
 }

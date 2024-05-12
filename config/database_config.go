@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jeypc/go-jwt-mux/entity"
+	"github.com/AzkaAzkun/Note-App/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

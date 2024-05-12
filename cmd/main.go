@@ -3,7 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/jeypc/go-jwt-mux/config"
+	"github.com/AzkaAzkun/Note-App/config"
+	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 )
 
@@ -15,4 +16,6 @@ func main() {
 	}
 	config.ConnectDatabase()
 
+	app := fiber.New()
+	router.SetupAuth(app)
 }
